@@ -68,3 +68,13 @@ for(i in seq_along(zip_files)){ # i = 25
   }
 
 }
+
+#
+# prep dnit rodovias shape
+# https://www.gov.br/infraestrutura/pt-br/assuntos/dados-de-transportes/bit/bitmodosmapas#maprodo
+#
+
+br_shp <- sf::read_sf("data/rodovias-zip/rodovias.shp")
+br_shp <- br_shp[br_shp$sg_uf == "PR",]
+br_shp <- br_shp %>% sf::st_transform(4326)
+readr::write_rds(x = br_shp,path = "data/rodovias-zip/rodovias_pr.rds",compress = "gz")
